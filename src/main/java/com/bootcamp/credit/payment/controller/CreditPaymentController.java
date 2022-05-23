@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.bootcamp.credit.payment.dto.CreditPaymentByIdCreditRequest;
 import com.bootcamp.credit.payment.dto.CreditPaymentByIdPaymentRequest;
 import com.bootcamp.credit.payment.entity.CreditPayment;
-import com.bootcamp.credit.payment.service.impl.CreditPaymentServiceImpl;
+import com.bootcamp.credit.payment.service.CreditPaymentService;
 
 import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Flux;
@@ -27,7 +27,7 @@ import reactor.core.publisher.Mono;
 @RequestMapping("/CreditPayment")
 public class CreditPaymentController {
 
-	private final CreditPaymentServiceImpl creditPaymentService;
+	private final CreditPaymentService creditPaymentService;
 
     @GetMapping
     public Mono<ResponseEntity<Flux<CreditPayment>>>getAllCreditPayment() {
