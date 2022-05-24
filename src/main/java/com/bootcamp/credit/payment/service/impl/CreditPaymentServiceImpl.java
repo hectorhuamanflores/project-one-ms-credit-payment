@@ -2,6 +2,7 @@ package com.bootcamp.credit.payment.service.impl;
 
 import java.util.function.Function;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -22,11 +23,13 @@ import reactor.core.publisher.Mono;
 public class CreditPaymentServiceImpl implements CreditPaymentService{
 	private  final CreditPaymentRepository creditPaymentRepository;
     
-	private WebClient creditServiceClient = WebClient.builder()
-		      .baseUrl("http://localhost:8095")
-		      .build();
+	@Autowired
+    private  WebClient.Builder builder;
 	
-	private Function<CreditUpdateForConsPayRequest, Mono<CreditUpdateForConsPayResponse>> msCreditForConsPay = (objeto) -> creditServiceClient.put()
+	private Function<CreditUpdateForConsPayRequest, Mono<CreditUpdateForConsPayResponse>> msCreditForConsPay = (objeto) -> builder
+			.baseUrl("http://ms-credit")
+		    .build()
+			.put()
 			.uri("/CreditLine/updateCreditConsumptionPayment/")
 			.body(Mono.just(objeto), CreditUpdateForConsPayResponse.class)
 			.retrieve()
